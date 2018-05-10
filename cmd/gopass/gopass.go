@@ -12,8 +12,6 @@ import (
 	"syscall"
 )
 
-//var kdbx = "/Users/rex/Dropbox/bitbucket/home/de9Eithu2Vaivo5Coh5pes1oop6Out.kdbx"
-
 func main() {
 	usr, _ := user.Current()
 	kdbx := fmt.Sprintf("%s/.pass.kdbx", usr.HomeDir)
@@ -26,12 +24,7 @@ func main() {
 	_ = gokeepasslib.NewDecoder(file).Decode(db)
 	db.UnlockProtectedEntries()
 
-	// entry := db.Content.Root.Groups[0].Groups[0].Entries[0]
-	// fmt.Println(entry.GetTitle())
-	// fmt.Println(entry.GetPassword())
-
 	search := os.Args[1]
-	//fmt.Println("searching for " + search)
 	rsearch, _ := regexp.Compile("(?i)" + search)
 	found := make(map[string]string)
 
