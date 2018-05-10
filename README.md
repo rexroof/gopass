@@ -11,5 +11,5 @@ TODO:
 * set location of keepass db
 * allow for changing passwords
 * optional search on other elements
-* optional read other day from entry into clipboard
+* optional read other data from entry into clipboard
 * add new entries to database
