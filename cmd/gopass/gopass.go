@@ -6,6 +6,7 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/tobischo/gokeepasslib"
 	"golang.org/x/crypto/ssh/terminal"
+	"log"
 	"os"
 	"os/user"
 	"regexp"
@@ -19,18 +20,25 @@ func main() {
 
 	kdbx_path := flag.String("kdbx", default_kdbx, "path to kdbx file")
 	flag.Parse()
-	tails := flag.Args()
 
-	file, _ := os.Open(*kdbx_path)
+	if flag.NArg() == 0 {
+		fmt.Fprintln(os.Stderr, "search pattern required")
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	file, err := os.Open(*kdbx_path)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	db := gokeepasslib.NewDatabase()
-
 	pwd := getpass("Database Password: ")
 	db.Credentials = gokeepasslib.NewPasswordCredentials(pwd)
 	_ = gokeepasslib.NewDecoder(file).Decode(db)
 	db.UnlockProtectedEntries()
 
-	search := tails[1]
+	search := flag.Arg(0)
 	rsearch, _ := regexp.Compile("(?i)" + search)
 	found := make(map[string]string)
 
