@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/tobischo/gokeepasslib"
@@ -14,8 +15,13 @@ import (
 
 func main() {
 	usr, _ := user.Current()
-	kdbx := fmt.Sprintf("%s/.pass.kdbx", usr.HomeDir)
-	file, _ := os.Open(kdbx)
+	default_kdbx := fmt.Sprintf("%s/.pass.kdbx", usr.HomeDir)
+
+	kdbx_path := flag.String("kdbx", default_kdbx, "path to kdbx file")
+	flag.Parse()
+	tails := flag.Args()
+
+	file, _ := os.Open(*kdbx_path)
 
 	db := gokeepasslib.NewDatabase()
 
@@ -24,7 +30,7 @@ func main() {
 	_ = gokeepasslib.NewDecoder(file).Decode(db)
 	db.UnlockProtectedEntries()
 
-	search := os.Args[1]
+	search := tails[1]
 	rsearch, _ := regexp.Compile("(?i)" + search)
 	found := make(map[string]string)
 
