@@ -14,11 +14,16 @@ import (
 	"syscall"
 )
 
+const version = "0.0.1"
+
 func main() {
 	usr, _ := user.Current()
 	default_kdbx := fmt.Sprintf("%s/.pass.kdbx", usr.HomeDir)
 
-	kdbx_path := flag.String("kdbx", default_kdbx, "path to kdbx file")
+	var (
+		kdbx_path = flag.String("kdbx", default_kdbx, "path to kdbx file")
+	)
+
 	flag.Parse()
 
 	if flag.NArg() == 0 {
