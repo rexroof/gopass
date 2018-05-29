@@ -27,9 +27,9 @@ func main() {
 	flag.Parse()
 
 	if flag.NArg() == 0 {
-		fmt.Fprintln(os.Stderr, "search pattern required")
+		fmt.Fprintln(os.Stderr, "Usage: gopass [options] <search pattern>\n")
 		flag.PrintDefaults()
-		os.Exit(1)
+		os.Exit(2)
 	}
 
 	file, err := os.Open(*kdbx_path)
