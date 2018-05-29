@@ -13,3 +13,5 @@ TODO:
 * optional search on other elements
 * optional read other data from entry into clipboard
 * add new entries to database
+* use exact match if there is one and there are multiple entries
+* toggle case sensitivity
