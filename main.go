@@ -46,11 +46,16 @@ func main() {
 	search := flag.Arg(0)
 	rsearch, _ := regexp.Compile("(?i)" + search)
 	found := make(map[string]string)
+	exact := make(map[string]string)
 
 	for _, top := range db.Content.Root.Groups {
 		for _, groups := range top.Groups {
 			for _, entry := range groups.Entries {
 				entry_path := fmt.Sprintf("%s/%s/%s", top.Name, groups.Name, entry.GetTitle())
+				if strings.Compare(entry.GetTitle(), search) == 0 {
+					exact[entry_path] = entry.GetPassword()
+					fmt.Println("exact match")
+				}
 				if rsearch.MatchString(entry_path) {
 					fmt.Println(entry_path)
 					found[entry_path] = entry.GetPassword()
@@ -59,7 +64,15 @@ func main() {
 		}
 	}
 
-	if len(found) == 1 {
+	if len(exact) == 1 {
+		for _, found_pw := range exact {
+			if err := clipboard.WriteAll(string(found_pw)); err != nil {
+				panic(err)
+			} else {
+				fmt.Println("exact match written to clipboard")
+			}
+		}
+	} else if len(found) == 1 {
 		for _, found_pw := range found {
 			if err := clipboard.WriteAll(string(found_pw)); err != nil {
 				panic(err)
