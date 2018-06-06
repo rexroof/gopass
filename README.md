@@ -8,7 +8,6 @@ This is also my first project in Go, so the secondary purpose is to teach myself
 
 TODO:
 
-* use exact match if there is one and there are multiple entries
 * recognize when db pw is wrong
 * set location of keepass db
 * allow for changing passwords
@@ -16,3 +15,5 @@ TODO:
 * optional read other data from entry into clipboard
 * add new entries to database
 * toggle case sensitivity
+
+* make tests
