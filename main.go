@@ -27,7 +27,7 @@ func main() {
 	flag.Parse()
 
 	if flag.NArg() == 0 {
-		fmt.Fprintln(os.Stderr, "Usage: gopass [options] <search pattern>\n")
+		fmt.Fprintln(os.Stderr, "Usage: gopass [options] <search pattern>")
 		flag.PrintDefaults()
 		os.Exit(2)
 	}
