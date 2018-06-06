@@ -49,7 +49,12 @@ func main() {
 	exact := make(map[string]string)
 
 	for _, top := range db.Content.Root.Groups {
+		if top.Name == "NewDatabase" {
+			fmt.Println("wrong password or empty database")
+			os.Exit(3)
+		}
 		for _, groups := range top.Groups {
+			fmt.Println("groups name " + groups.Name)
 			for _, entry := range groups.Entries {
 				entry_path := fmt.Sprintf("%s/%s/%s", top.Name, groups.Name, entry.GetTitle())
 				if strings.Compare(entry.GetTitle(), search) == 0 {
