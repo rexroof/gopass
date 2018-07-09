@@ -21,3 +21,5 @@ TODO:
 * trap interrupt and fix stty if in password prompt
 
 * make tests
+
+* working with feature branches https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
