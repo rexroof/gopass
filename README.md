@@ -11,6 +11,7 @@ TODO:
 * store files in db:
    use something like -notes to just output the notes section
    - also change it to be able to write a -notes file to the db.
+   ( this could be used to store vpn profiles? )
 * set location of keepass db
 * allow for changing passwords
 * optional search on other elements
